@@ -157,6 +157,8 @@ mostSimilarIndices<-function(X,x)
 
 neighborsInGraph<-function(g,simv)
 {
+  #if (simv == NULL)
+  #if ((length(simv)==0) || (simv == NULL))
   return(g[simv,])
 }
 
@@ -217,7 +219,7 @@ getEstimatorsVector<-function (g,simv,Y,C,alpha)
     probv[[i]]<-prob2d(line)
   }
  
-  ye<-vector()
+  
   for (i in 1:nrow(ngvc))
   {
     for (j  in 1:max(C))
@@ -231,21 +233,39 @@ getEstimatorsVector<-function (g,simv,Y,C,alpha)
         sig<-"."
     else
         sig<-" "
-    if (length(y2d[[j]] ) > 0)
-    {
+    
+    ye<-vector()
+    if (length(line)>0) 
+    {  k=1
       for (j  in 1:max(ngvc[i,]))
-      {        
-      ye[j]<-mean(y2d[[j]])
+      {  
+      if (length(y2d[[j]] ) > 0)
+      {
+      ye[k]<-mean(y2d[[j]])
+      k=k+1
+      }
       }
 
+      
+      if (ent[i]==0)
+      {
+        s<-paste("p=",probv[[i]],"yhat=",as.numeric(ye))
+        cat(sig," ","entropy=",ent[i],s,"\n")
+      }
+      else
+      {
       s<-paste("p=",probv[[i]],"yhat=",ye)
       cat(sig," ","entropy=",ent[i],s,"\n")
+      }
     }
     else
-      message ("no neighbors.")
-    
+    { sig=" "
+      s<-paste("p=",555)
+      cat(sig," ","entropy=",0,s,"-no neighbors in graph.\n")
+      
+     }
   }
-  print(ngvc)
+  #print(ngvc)
   return (ngvc)
   
   
@@ -278,7 +298,7 @@ buildGraphModel<-function(X,Y)
     vx[[i]]=X[id]
     vy[[i]]=Y[id]
     cxy[[i]]=c2d[id]
-    print(gx[[i]])
+    #print(gx[[i]])
   }
   
   listModel$mX = mX
@@ -300,7 +320,7 @@ estimate<-function(g,i,x)
 
   simv<-mostSimilarIndices(matrix(g$vx[[i]]),matrix(x))
   calculateEstimator(g$gx[[i]],simv,g$vy[[i]],0.8)->est
-  #ev<-getEstimatorsVector(g$gx[[i]],simv,g$vy[[i]],g$cxy[[i]],0.8)
+  ev<-getEstimatorsVector(g$gx[[i]],simv,g$vy[[i]],g$cxy[[i]],0.8)
   return (est)
   
 }
@@ -398,8 +418,8 @@ example3<-function(filename)
 }
 #exmaple()
 #exmaple2()
-#example3("I.Rda")
-example3("III.Rda")
+example3("I.Rda")
+#example3("III.Rda")
 #example3("IV.Rda")
 #example3("V.Rda")
 
