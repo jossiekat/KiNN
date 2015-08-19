@@ -15,7 +15,7 @@ suppressPackageStartupMessages(library(stringr))
 #make a doc
 #enable  data frames.
 #check mov
-#better output.
+#better output
 #cut y to 5 decimals.
 #arrange test program
 
@@ -263,12 +263,12 @@ getEstimatorsVector<-function (g,simv,Y,C,alpha)
       
       if (ent[i]==0)
       {
-        s<-paste0("p=",round(probv[[i]],3),"yhat=",round(as.numeric(ye),3))
+        s<-paste0("p=",round(probv[[i]],3),",yhat=",round(as.numeric(ye),3))
         cat(sig," ","entropy=",ent[i],s,"\n")
       }
       else
       {
-      s<-paste0("(p=",round(probv[[i]],3),"yhat=",round(ye,3),")")
+      s<-paste0("(p=",round(probv[[i]],3),",yhat=",round(ye,3),")")
       cat(sig," ","entropy=",ent[i],s,"\n")
       }
     }
