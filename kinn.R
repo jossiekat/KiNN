@@ -1,15 +1,28 @@
 #libraries and parameters
 
-library(ggplot2)
-library(caret)
-library(caTools)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(caret))
+suppressPackageStartupMessages(library(caTools))
 suppressPackageStartupMessages(library(KRLS))
-library(igraph)
-library(mclust)
-library(stringr)
+suppressPackageStartupMessages(library(igraph))
+suppressPackageStartupMessages(library(mclust))
+suppressPackageStartupMessages(library(stringr))
 
 
 
+#plot better igraphs and use special program for it.
+#make a package.
+#make a doc
+#enable  data frames.
+#check mov
+#better output.
+#cut y to 5 decimals.
+#arrange test program
+
+#add point to calc
+
+
+#signif(1.128347132904321674821,digits=3)
 
 # normalizing matrix so expectation of the sum of all probabilities 
 # will be the number of edges in graph.
@@ -250,18 +263,18 @@ getEstimatorsVector<-function (g,simv,Y,C,alpha)
       
       if (ent[i]==0)
       {
-        s<-paste("p=",probv[[i]],"yhat=",as.numeric(ye))
+        s<-paste0("p=",round(probv[[i]],3),"yhat=",round(as.numeric(ye),3))
         cat(sig," ","entropy=",ent[i],s,"\n")
       }
       else
       {
-      s<-paste("p=",probv[[i]],"yhat=",ye)
+      s<-paste0("(p=",round(probv[[i]],3),"yhat=",round(ye,3),")")
       cat(sig," ","entropy=",ent[i],s,"\n")
       }
     }
     else
     { sig=" "
-      s<-paste("p=",1)
+      s<-paste0("p=",1)
       cat(sig," ","entropy=",0,s,"-no neighbors in graph.\n")
       
      }
@@ -344,15 +357,7 @@ predict.graph<-function(g,X)
   return (Y)
 }
 
-predict.graph.2d<-function(g,X)
-{
-  
-  ev<-getEstimatorsVector(g$gx[[i]],simv,g$vy[[i]],g$cxy[[i]],0.8)
- 
-  
- 
-  
-}
+
 
 createGraphFileName<-function(filename,i)
 {
@@ -390,7 +395,6 @@ exmaple2<-function()
   gmodel<-buildGraphModel(X,Y)
   predict.graph(gmodel,x)->ygraph
   plot(X,Y)
-  #predict.graph.2d(gmodel,x)->ygraph
   plotGraphs(gmodel)
 }
 exmaple<-function()
@@ -422,15 +426,16 @@ example3<-function(filename)
   plot(X,Y)
   #predict.graph.2d(gmodel,x)->ygraph
   plotGraphs(gmodel,filename)
-  message("cor",cor(y,ygraph))
+  message("corralation to true y : ",cor(y,ygraph))
   
 }
 #exmaple()
 #exmaple2()
   
-example3("I.Rda")
+#example3("I.Rda")
+#example3("II.Rda")
 #example3("III.Rda")
-#example3("IV.Rda")
+example3("IV.Rda")
 #example3("V.Rda")
 
 
