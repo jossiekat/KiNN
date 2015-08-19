@@ -6,6 +6,7 @@ library(caTools)
 suppressPackageStartupMessages(library(KRLS))
 library(igraph)
 library(mclust)
+library(stringr)
 
 
 
@@ -235,7 +236,7 @@ getEstimatorsVector<-function (g,simv,Y,C,alpha)
         sig<-" "
     
     ye<-vector()
-    if (length(line)>0) 
+    if (probv[[i]]>0) 
     {  k=1
       for (j  in 1:max(ngvc[i,]))
       {  
@@ -260,7 +261,7 @@ getEstimatorsVector<-function (g,simv,Y,C,alpha)
     }
     else
     { sig=" "
-      s<-paste("p=",555)
+      s<-paste("p=",1)
       cat(sig," ","entropy=",0,s,"-no neighbors in graph.\n")
       
      }
@@ -353,13 +354,21 @@ predict.graph.2d<-function(g,X)
   
 }
 
-plotGraphs<-function(gmodel)
+createGraphFileName<-function(filename,i)
+{
+  prefix = str_extract(filename, "([a-zA-Z0-9]+)")
+  graphname= str_c(prefix,as.character(i),".","gml")
+  return (graphname)
+}
+plotGraphs<-function(gmodel,filename)
 {
   for ( i in 1:length(gmodel$gx))
   {
-  m=gmodel$gx[[1]]
-  g=graph.adjacency(m,mode="undirected",weighted=NULL)
-  plot(g)
+    m=gmodel$gx[[1]]
+    g=graph.adjacency(m,mode="undirected",weighted=NULL)
+    gfilename = createGraphFileName(filename,i)
+    write.graph(g, gfilename, format=c("gml"))
+    plot(g)
   }
 }
 exmaple<-function()
@@ -412,12 +421,13 @@ example3<-function(filename)
   predict.graph(gmodel,x)->ygraph
   plot(X,Y)
   #predict.graph.2d(gmodel,x)->ygraph
-  plotGraphs(gmodel)
+  plotGraphs(gmodel,filename)
   message("cor",cor(y,ygraph))
   
 }
 #exmaple()
 #exmaple2()
+  
 example3("I.Rda")
 #example3("III.Rda")
 #example3("IV.Rda")
