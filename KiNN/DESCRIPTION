@@ -1,0 +1,8 @@
+Package: KiNN
+Title: KiNN,a graph based regression model.
+Version: 1.7
+Authors@R: person("joseph", "keshet", , "jossiekat@icloud.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph)
+Depends: R (>= 3.0.2)
+License: What license is it under?
+LazyData: true
