@@ -7,6 +7,7 @@ suppressPackageStartupMessages(library(KRLS))
 suppressPackageStartupMessages(library(igraph))
 suppressPackageStartupMessages(library(mclust))
 suppressPackageStartupMessages(library(stringr))
+library(formula.tools)
 
 
 
@@ -18,7 +19,7 @@ suppressPackageStartupMessages(library(stringr))
 #better output
 #cut y to 5 decimals.
 #arrange test program
-
+#remove prints.
 #add point to calc
 
 
@@ -358,6 +359,24 @@ predict.graph<-function(g,X)
 }
 
 
+predict.kinn<-function(g,data)
+{
+  X=as.matrix(data[,g$indep])
+  predict(g$mX,X)$classification->zx
+  Y<-rep(0,length(X))
+  for (i in 1:g$mX$G)
+  {  
+    if (i %in% zx)
+    {
+      e<-estimate(g,i,X[i==zx])
+      Y[i==zx]<-e
+    }
+    
+  }
+  print(Y)
+  return (Y)
+}
+
 
 createGraphFileName<-function(filename,i)
 {
@@ -429,17 +448,59 @@ example3<-function(filename)
   message("corralation to true y : ",cor(y,ygraph))
   
 }
+
+
+example4<-function(filename)
+{
+  load(file= filename);
+  
+  plot(df[,"x"],df[,"y"])
+  
+  inTrain<-createDataPartition(y=df$y,p=0.7,list=FALSE)
+  train<-df[inTrain,];
+  test<-df[-inTrain,]
+  
+  
+  
+  gmodel<-kinn("y~x+z",train)
+  predict.kinn(gmodel,test)->ygraph
+  
+  #predict.graph.2d(gmodel,x)->ygraph
+  plotGraphs(gmodel,filename)
+  message("corralation to true y : ",cor(test$y,ygraph))
+  
+}
+
+kinn<-function ( f,data )
+{
+  g<-as.formula(f)
+    
+  indep<-all.vars(g)[2]
+  if (indep ==  ".")
+    indep = setdiff(colnames(data),lhs.vars(g) )
+  else
+    indep = rhs.vars(g) 
+  
+  
+  X<-as.matrix(data[,indep])
+  Y<-as.matrix(data[,lhs.vars(g)])
+  graph<-buildGraphModel(X,Y)
+  graph$dep<-lhs.vars(g)
+  graph$indep<-indep
+  return (graph)
+}
+
 #exmaple()
 #exmaple2()
   
 #example3("I.Rda")
 #example3("II.Rda")
-#example3("III.Rda")
-example3("IV.Rda")
+example4("III.Rda")
+#example3("IV.Rda")
 #example3("V.Rda")
 
 
-
+message("graph model")
 
 
 
