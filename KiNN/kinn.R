@@ -7,7 +7,7 @@ suppressPackageStartupMessages(library(KRLS))
 suppressPackageStartupMessages(library(igraph))
 suppressPackageStartupMessages(library(mclust))
 suppressPackageStartupMessages(library(stringr))
-library(formula.tools)
+suppressPackageStartupMessages(library(formula.tools))
 
 
 
