@@ -495,7 +495,7 @@ kinn<-function ( f,data )
   
 #example3("I.Rda")
 #example3("II.Rda")
-example4("III.Rda")
+#example4("III.Rda")
 #example3("IV.Rda")
 #example3("V.Rda")
 
