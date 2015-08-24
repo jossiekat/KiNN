@@ -11,7 +11,7 @@ function(filename)
   
   
   
-  gmodel<-kinn("y~x+z",train)
+  gmodel<-kinn("y~x",train)
   predict.kinn(gmodel,test)->ygraph
   
   #predict.graph.2d(gmodel,x)->ygraph

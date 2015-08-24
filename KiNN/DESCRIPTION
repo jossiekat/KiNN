@@ -1,9 +1,10 @@
 Package: KiNN
 Type: Package
-Title: What the package does (short line)
+Title: KiNN algorythm in R
 Version: 1.0
 Date: 2015-08-23
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Author: joseph keshet
+Maintainer: Who to complain to <jossiekat@icloud.com>
 Description: More about what it does (maybe more than one line)
+Depends: R (>= 3.0.0), caret, caTools,formula.tools,mclust,stringr,igraph,KRLS,ggplot2
 License: What license is it under?
