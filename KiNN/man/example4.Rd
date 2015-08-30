@@ -53,7 +53,7 @@ function (filename)
     inTrain <- createDataPartition(y = df$y, p = 0.7, list = FALSE)
     train <- df[inTrain, ]
     test <- df[-inTrain, ]
-    gmodel <- kinn("y~x+z", train)
+    gmodel <- kinn("y~x", train)
     ygraph <- predict.kinn(gmodel, test)
     plotGraphs(gmodel, filename)
     message("corralation to true y : ", cor(test$y, ygraph))

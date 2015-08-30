@@ -3,7 +3,8 @@
 \alias{KiNN}
 \docType{package}
 \title{
-What the package does (short line)
+KiNN algorithm implementation 
+
 ~~ package title ~~
 }
 \description{
@@ -21,10 +22,9 @@ License: \tab What license is it under?\cr
 ~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-Who wrote it
+jossie keshet
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: Who to complain to <jossiekat@icloud.com	>
 }
 \references{
 ~~ Literature or other references for background information ~~
@@ -36,6 +36,5 @@ Maintainer: Who to complain to <yourfault@somewhere.net>
 ~~ Optional links to other man pages, e.g. ~~
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
-\examples{
-~~ simple examples of the most important functions ~~
+\examples{  
 }
